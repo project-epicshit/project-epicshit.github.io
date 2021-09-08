@@ -1,15 +1,166 @@
-<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=robots content="all,follow"><meta name=googlebot content="index,follow,snippet,archive"><meta name=viewport content="width=device-width,initial-scale=1"><title>Multi Cloud Connect with Ansible - configure GCP</title><meta name=author content><meta name=keywords content="Fabian Born,hugo,go"><meta name=generator content="Hugo 0.85.0"><link href="//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800" rel=stylesheet type=text/css><link rel=stylesheet href=//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css><link rel=stylesheet href=//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css integrity=sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u crossorigin=anonymous><link href=/css/animate.css rel=stylesheet><link href=/css/style.blue.css rel=stylesheet id=theme-stylesheet><link href=/css/custom.css rel=stylesheet><!--[if lt IE 9]><script src=https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js></script><script src=https://oss.maxcdn.com/respond/1.4.2/respond.min.js></script><![endif]--><link rel="shortcut icon" href=/img/favicon.ico type=image/x-icon><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link href=/css/owl.carousel.css rel=stylesheet><link href=/css/owl.theme.css rel=stylesheet><link rel=alternate href=https://hungry-carson-5114f7.netlify.app/index.xml type=application/rss+xml title="-:: Cloud is yours and all the new things ::-"><meta name=twitter:card content="summary_large_image"><meta name=twitter:site content="@NTAPFabian"><meta name=twitter:title content="Multi Cloud Connect with Ansible - configure GCP"><meta name=twitter:image content="https://hungry-carson-5114f7.netlify.app/img/cloud_small_gcp.png"><meta name=twitter:description content><meta property="og:title" content="Multi Cloud Connect with Ansible - configure GCP"><meta property="og:type" content="website"><meta property="og:url" content="https://hungry-carson-5114f7.netlify.app/blog/2019/09/10/multicloudconnect-w-ansible-gcp//"><meta property="og:image" content="img/logo.png"></head><body><div id=all><header><div class=navbar-affixed-top data-spy=affix data-offset-top=200><div class="navbar navbar-default yamm" role=navigation id=navbar><div class=container><div class=navbar-header><a class="navbar-brand home" href=https://hungry-carson-5114f7.netlify.app/><img src=https://hungry-carson-5114f7.netlify.app/img/logo.png alt="Multi Cloud Connect with Ansible - configure GCP logo" class="hidden-xs hidden-sm">
-<img src=https://hungry-carson-5114f7.netlify.app/img/logo.png alt="Multi Cloud Connect with Ansible - configure GCP logo" class="visible-xs visible-sm">
-<span class=sr-only>Multi Cloud Connect with Ansible - configure GCP - go to homepage</span></a><div class=navbar-buttons><button type=button class="navbar-toggle btn-template-main" data-toggle=collapse data-target=#navigation>
+<!doctype html><html lang=en-us>
+<head>
+<meta charset=utf-8>
+<meta name=robots content="all,follow">
+<meta name=googlebot content="index,follow,snippet,archive">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Multi Cloud Connect with Ansible - configure GCP</title>
+<meta name=author content>
+<meta name=keywords content="Fabian Born,hugo,go">
+<meta name=generator content="Hugo 0.88.1">
+<link href="//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800" rel=stylesheet type=text/css>
+<link rel=stylesheet href=//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css>
+<link rel=stylesheet href=//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css integrity=sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u crossorigin=anonymous>
+<link href=/css/animate.css rel=stylesheet>
+<link href=/css/style.blue.css rel=stylesheet id=theme-stylesheet>
+<link href=/css/custom.css rel=stylesheet><!--[if lt IE 9]><script src=https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js></script>
+<script src=https://oss.maxcdn.com/respond/1.4.2/respond.min.js></script><![endif]-->
+<link rel="shortcut icon" href=/img/favicon.ico type=image/x-icon>
+<link rel=apple-touch-icon href=/img/apple-touch-icon.png>
+<link href=/css/owl.carousel.css rel=stylesheet>
+<link href=/css/owl.theme.css rel=stylesheet>
+<link rel=alternate href=http://192.168.69.22:1313/index.xml type=application/rss+xml title="-:: Cloud is yours and all the new things ::-">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:site content="@NTAPFabian">
+<meta name=twitter:title content="Multi Cloud Connect with Ansible - configure GCP">
+<meta name=twitter:image content="http://192.168.69.22:1313/img/cloud_small_gcp.png">
+<meta name=twitter:description content>
+<meta property="og:title" content="Multi Cloud Connect with Ansible - configure GCP">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://192.168.69.22:1313/blog/2019/09/10/multicloudconnect-w-ansible-gcp//">
+<meta property="og:image" content="img/logo.png">
+</head>
+<body>
+<div id=all>
+<header>
+<div class=navbar-affixed-top data-spy=affix data-offset-top=200>
+<div class="navbar navbar-default yamm" role=navigation id=navbar>
+<div class=container>
+<div class=navbar-header>
+<a class="navbar-brand home" href=http://192.168.69.22:1313/>
+<img src=http://192.168.69.22:1313/img/logo.png alt="Multi Cloud Connect with Ansible - configure GCP logo" class="hidden-xs hidden-sm">
+<img src=http://192.168.69.22:1313/img/logo.png alt="Multi Cloud Connect with Ansible - configure GCP logo" class="visible-xs visible-sm">
+<span class=sr-only>Multi Cloud Connect with Ansible - configure GCP - go to homepage</span>
+</a>
+<div class=navbar-buttons>
+<button type=button class="navbar-toggle btn-template-main" data-toggle=collapse data-target=#navigation>
 <span class=sr-only>Toggle Navigation</span>
-<i class="fa fa-align-justify"></i></button></div></div><div class="navbar-collapse collapse" id=navigation><ul class="nav navbar-nav navbar-right"><li class=dropdown><a href=/>Home</a></li><li class="dropdown active"><a href=/blog/>Blog</a></li></ul></div><div class="collapse clearfix" id=search><form class=navbar-form role=search><div class=input-group><input type=text class=form-control placeholder=Search>
-<span class=input-group-btn><button type=submit class="btn btn-template-main"><i class="fa fa-search"></i></button></span></div></form></div></div></div></div></header><div id=heading-breadcrumbs><div class=container><div class=row><div class=col-md-12><h1>Multi Cloud Connect with Ansible - configure GCP</h1></div></div></div></div><div id=content><div class=container><div class=row><div class=col-md-9 id=blog-post><p class="text-muted text-uppercase mb-small text-right">By <a href=#>Fabian Born</a> | September 10, 2019</p><div id=post-content><p>The last post shows how you can configure a VPN Gateway in Azure. Now I will show you how it works in Google Cloud Platform.</p><p>But first this post repeats the requirements form the last one. So we need a working authorization to the hyperscaler and our required network configuration.</p><p>Google, Azure and AWS provides the information, how you can connect the platform with Ansible. So I linked only the documentation:</p><ol><li>AZURE: <a href=https://docs.ansible.com/ansible/2.8/scenario_guides/guide_azure.html title="Azure ansible docs">azuredocs</a></li><li>Google: <a href=https://docs.ansible.com/ansible/2.8/scenario_guides/guide_gce.html title="GCP ansible docs">GCPdocs</a></li><li>AWS: <a href=https://docs.ansible.com/ansible/2.8/scenario_guides/guide_aws.html title="AWS docs">AWSdocs</a></li></ol><h3 id=environment>Environment</h3><p>Based on the last post we will use following network/subnet definition:</p><table><thead><tr><th></th><th></th><th>subnet</th><th>region</th><th></th></tr></thead><tbody><tr><td>Azure</td><td></td><td>172.16.8.0/22</td><td>eastus</td><td></td></tr><tr><td>Google</td><td></td><td>172.16.16.0/22</td><td></td><td></td></tr><tr><td>AWS</td><td></td><td>172.16.24.0/22</td><td></td><td></td></tr><tr><td>on-Prem</td><td></td><td>172.16.32.0/22</td><td></td><td></td></tr></tbody></table><h3 id=deploying-google>Deploying google</h3><p>The network configuration in Google is just a little bit easier as in Azure. So we can configure the complete subnet or we choose someone from the whole. In this example I select a shorter subnet:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>vars</span>:
+<i class="fa fa-align-justify"></i>
+</button>
+</div>
+</div>
+<div class="navbar-collapse collapse" id=navigation>
+<ul class="nav navbar-nav navbar-right">
+<li class=dropdown>
+<a href=/>Home</a>
+</li>
+<li class="dropdown active">
+<a href=/blog/>Blog</a>
+</li>
+<li class=dropdown>
+<a href=# class=dropdown-toggle data-toggle=dropdown role=button aria-haspopup=true aria-expanded=false>Community <span class=caret></span></a>
+<ul class=dropdown-menu>
+<li><a href=https://login.epicshit.io/signin/register>Sign Up</a></li>
+<li><a href=https://login.epicshit.io>Login</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="collapse clearfix" id=search>
+<form class=navbar-form role=search>
+<div class=input-group>
+<input type=text class=form-control placeholder=Search>
+<span class=input-group-btn>
+<button type=submit class="btn btn-template-main"><i class="fa fa-search"></i></button>
+</span>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</header>
+<div id=heading-breadcrumbs>
+<div class=container>
+<div class=row>
+<div class=col-md-12>
+<h1>Multi Cloud Connect with Ansible - configure GCP</h1>
+</div>
+</div>
+</div>
+</div>
+<div id=content>
+<div class=container>
+<div class=row>
+<div class=col-md-9 id=blog-post>
+<p class="text-muted text-uppercase mb-small text-right">By <a href=#>Fabian Born</a> | September 10, 2019</p>
+<div id=post-content>
+<p>The last post shows how you can configure a VPN Gateway in Azure. Now I will show you how it works in Google Cloud Platform.</p>
+<p>But first this post repeats the requirements form the last one. So we need a working authorization to the hyperscaler and our required network configuration.</p>
+<p>Google, Azure and AWS provides the information, how you can connect the platform with Ansible. So I linked only the documentation:</p>
+<ol>
+<li>AZURE: <a href=https://docs.ansible.com/ansible/2.8/scenario_guides/guide_azure.html title="Azure ansible docs">azuredocs</a></li>
+<li>Google: <a href=https://docs.ansible.com/ansible/2.8/scenario_guides/guide_gce.html title="GCP ansible docs">GCPdocs</a></li>
+<li>AWS: <a href=https://docs.ansible.com/ansible/2.8/scenario_guides/guide_aws.html title="AWS docs">AWSdocs</a></li>
+</ol>
+<h3 id=environment>Environment</h3>
+<p>Based on the last post we will use following network/subnet definition:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th>subnet</th>
+<th>region</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Azure</td>
+<td></td>
+<td>172.16.8.0/22</td>
+<td>eastus</td>
+<td></td>
+</tr>
+<tr>
+<td>Google</td>
+<td></td>
+<td>172.16.16.0/22</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>AWS</td>
+<td></td>
+<td>172.16.24.0/22</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>on-Prem</td>
+<td></td>
+<td>172.16.32.0/22</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id=deploying-google>Deploying google</h3>
+<p>The network configuration in Google is just a little bit easier as in Azure. So we can configure the complete subnet or we choose someone from the whole. In this example I select a shorter subnet:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>vars</span>:
     <span style=color:#f92672>gcp_project</span>: <span style=color:#e6db74>&#34;gcp-project-xxxx&#34;</span>
     <span style=color:#f92672>gcp_cred_kind</span>: <span style=color:#e6db74>&#34;serviceaccount&#34;</span>
     <span style=color:#f92672>gcp_cred_file</span>: <span style=color:#e6db74>&#34;/path/to/gcp.json&#34;</span>
     <span style=color:#f92672>gcp_subnet</span>: <span style=color:#e6db74>&#34;172.16.17.0/24&#34;</span>
     <span style=color:#f92672>gcp_region</span>: <span style=color:#e6db74>&#34;us-east1&#34;</span>
-</code></pre></div><ul><li>gcp_project: your google-cloud project name</li><li>gcp_cred_kind: account type</li><li>gcp_cred_file: Credential file</li></ul><p>This is an example of a credential file:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+</code></pre></div><ul>
+<li>gcp_project: your google-cloud project name</li>
+<li>gcp_cred_kind: account type</li>
+<li>gcp_cred_file: Credential file</li>
+</ul>
+<p>This is an example of a credential file:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
   <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;service_account&#34;</span>,
   <span style=color:#f92672>&#34;project_id&#34;</span>: <span style=color:#e6db74>&#34;gcp-project-xxxx&#34;</span>,
   <span style=color:#f92672>&#34;private_key_id&#34;</span>: <span style=color:#e6db74>&#34;a61ab2b5ea921024adccd4be7727fb1ef1010290&#34;</span>,
@@ -21,7 +172,8 @@
   <span style=color:#f92672>&#34;auth_provider_x509_cert_url&#34;</span>: <span style=color:#e6db74>&#34;https://www.googleapis.com/oauth2/v1/certs&#34;</span>,
   <span style=color:#f92672>&#34;client_x509_cert_url&#34;</span>: <span style=color:#e6db74>&#34;https://www.googleapis.com/robot/v1/metadata/x509/ansible%40gcp-project-xxxx.iam.gserviceaccount.com&#34;</span>
 }
-</code></pre></div><h3 id=create-gcp-virtual-network>Create GCP virtual network</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#### GCP Configuration</span>
+</code></pre></div><h3 id=create-gcp-virtual-network>Create GCP virtual network</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#### GCP Configuration</span>
     - <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;GCP: create a network&#34;</span>
       <span style=color:#f92672>gcp_compute_network</span>:
         <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;{{ rg }}network&#34;</span>
@@ -32,7 +184,8 @@
         <span style=color:#75715e>#state: &#34;{{ status }}&#34;</span>
         <span style=color:#f92672>state</span>: <span style=color:#ae81ff>present</span>
       <span style=color:#f92672>register</span>: <span style=color:#ae81ff>gcpnetwork</span>
-</code></pre></div><h3 id=add-the-subnets-to-the-virtual-network>Add the subnets to the virtual network</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>    - <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;GCP: create a subnetwork&#34;</span>
+</code></pre></div><h3 id=add-the-subnets-to-the-virtual-network>Add the subnets to the virtual network</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>    - <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;GCP: create a subnetwork&#34;</span>
       <span style=color:#f92672>gcp_compute_subnetwork</span>:
         <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;multicloudconnect&#34;</span>
         <span style=color:#f92672>region</span>: <span style=color:#e6db74>&#34;{{ gcp_region}}&#34;</span>
@@ -42,7 +195,8 @@
         <span style=color:#f92672>auth_kind</span>: <span style=color:#e6db74>&#34;{{ gcp_cred_kind }}&#34;</span>
         <span style=color:#f92672>service_account_file</span>: <span style=color:#e6db74>&#34;{{ gcp_cred_file }}&#34;</span>
         <span style=color:#f92672>state</span>: <span style=color:#ae81ff>present</span>
-</code></pre></div><h3 id=request-a-dynamic-public-ip-address-for-the-vpn-gateway>Request a dynamic public ip address for the vpn gateway</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>create a address</span>
+</code></pre></div><h3 id=request-a-dynamic-public-ip-address-for-the-vpn-gateway>Request a dynamic public ip address for the vpn gateway</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>create a address</span>
       <span style=color:#f92672>gcp_compute_address</span>:
         <span style=color:#f92672>name</span>: <span style=color:#ae81ff>addressvpngateway</span>
         <span style=color:#f92672>region</span>: <span style=color:#e6db74>&#34;{{ gcp_region }}&#34;</span>
@@ -51,7 +205,8 @@
         <span style=color:#f92672>service_account_file</span>: <span style=color:#e6db74>&#34;{{ gcp_cred_file }}&#34;</span>
         <span style=color:#f92672>state</span>: <span style=color:#ae81ff>present</span>
       <span style=color:#f92672>register</span>: <span style=color:#ae81ff>gcp_public_address</span>
-</code></pre></div><h3 id=create-a-new-vpn-gateway>Create a new VPN Gateway</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>create a target vpn gateway</span>
+</code></pre></div><h3 id=create-a-new-vpn-gateway>Create a new VPN Gateway</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>create a target vpn gateway</span>
       <span style=color:#f92672>gcp_compute_target_vpn_gateway</span>:
         <span style=color:#f92672>name</span>: <span style=color:#ae81ff>gateway-vpn-tunnel</span>
         <span style=color:#f92672>region</span>: <span style=color:#e6db74>&#34;{{ gcp_region }}&#34;</span>
@@ -61,7 +216,8 @@
         <span style=color:#f92672>service_account_file</span>: <span style=color:#e6db74>&#34;{{ gcp_cred_file }}&#34;</span>
         <span style=color:#f92672>state</span>: <span style=color:#ae81ff>present</span>
       <span style=color:#f92672>register</span>: <span style=color:#ae81ff>gcp_gateway</span>
-</code></pre></div><h3 id=create-firewall-rules-for-vpn-connect>Create Firewall rules for VPN Connect</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>    - <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;GCP: create a forwarding rule ESP&#34;</span>
+</code></pre></div><h3 id=create-firewall-rules-for-vpn-connect>Create Firewall rules for VPN Connect</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>    - <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;GCP: create a forwarding rule ESP&#34;</span>
       <span style=color:#f92672>gcp_compute_forwarding_rule</span>:
         <span style=color:#f92672>name</span>: <span style=color:#ae81ff>forwardingesp</span>
         <span style=color:#f92672>region</span>: <span style=color:#e6db74>&#34;{{ gcp_region }}&#34;</span>
@@ -101,6 +257,148 @@
         <span style=color:#f92672>service_account_file</span>: <span style=color:#e6db74>&#34;{{ gcp_cred_file }}&#34;</span>
         <span style=color:#f92672>network_tier</span>: <span style=color:#e6db74>&#34;STANDARD&#34;</span>
         <span style=color:#f92672>state</span>: <span style=color:#ae81ff>present</span>
-</code></pre></div><p>If you start with post one, you have two VPN Gateways running. The next step is to setup the connection between Azure and Google or you can create a VPN gateway on <a href=https://aws.amazon.com title=AWS>aws</a></p><p>The next post will show you, how you can setup the relationship betweenn Azure and Google. It will be available as soon as possible :-).</p><p>Update (2019-09-30): The next post is available: <a href=/blog/2019/09/30/multicloudconnect-w-ansible-connect/>&ldquo;Multicloud Connect with Ansible: The Connection&rdquo;</a></p></div></div><div class=col-md-3><div class="panel panel-default sidebar-menu"><div class=panel-heading><h3 class=panel-title>Search</h3></div><div class=panel-body><form action=//google.com/search method=get accept-charset=utf-8 role=search><div class=input-group><input type=search name=q class=form-control placeholder=Search>
-<input type=hidden name=sitesearch value=https://hungry-carson-5114f7.netlify.app/>
-<span class=input-group-btn><button type=submit class="btn btn-template-main"><i class="fa fa-search"></i></button></span></div></form></div></div><div class="panel panel-default sidebar-menu"><div class=panel-heading><h3 class=panel-title>Categories</h3></div><div class=panel-body><ul class="nav nav-pills nav-stacked"><li><a href=https://hungry-carson-5114f7.netlify.app/categories/ansible>ansible (4)</a></li><li><a href=https://hungry-carson-5114f7.netlify.app/categories/automation>automation (6)</a></li><li><a href=https://hungry-carson-5114f7.netlify.app/categories/cloud>cloud (3)</a></li><li><a href=https://hungry-carson-5114f7.netlify.app/categories/devops>devops (4)</a></li><li><a href=https://hungry-carson-5114f7.netlify.app/categories/docker>docker (2)</a></li><li><a href=https://hungry-carson-5114f7.netlify.app/categories/hashicorp>hashicorp (1)</a></li><li><a href=https://hungry-carson-5114f7.netlify.app/categories/homematic>homematic (2)</a></li><li><a href=https://hungry-carson-5114f7.netlify.app/categories/jenkins>jenkins (2)</a></li><li><a href=https://hungry-carson-5114f7.netlify.app/categories/kubernetes>kubernetes (4)</a></li><li><a href=https://hungry-carson-5114f7.netlify.app/categories/netapp>netapp (4)</a></li><li><a href=https://hungry-carson-5114f7.netlify.app/categories/powershell>powershell (1)</a></li><li><a href=https://hungry-carson-5114f7.netlify.app/categories/trident>trident (4)</a></li></ul></div></div><div class="panel sidebar-menu"><div class=panel-heading><h3 class=panel-title>Tags</h3></div><div class=panel-body><ul class=tag-cloud><li><a href=https://hungry-carson-5114f7.netlify.app/tags/ansible><i class="fa fa-tags"></i> ansible</a></li><li><a href=https://hungry-carson-5114f7.netlify.app/tags/automation><i class="fa fa-tags"></i> automation</a></li><li><a href=https://hungry-carson-5114f7.netlify.app/tags/cloud><i class="fa fa-tags"></i> cloud</a></li><li><a href=https://hungry-carson-5114f7.netlify.app/tags/hashicorp><i class="fa fa-tags"></i> hashicorp</a></li></ul></div></div></div></div></div></div><footer id=footer><div class=container><div class="col-md-4 col-sm-6"><h4>About us</h4><hr class="hidden-md hidden-lg hidden-sm"></div><div class="col-md-4 col-sm-6"><h4>Recent posts</h4><div class=blog-entries><div class="item same-height-row clearfix"><div class="image same-height-always"><a href=https://hungry-carson-5114f7.netlify.app/blog/2021/01/22/tridentautomatedinstall_update/><img src=https://hungry-carson-5114f7.netlify.app//img/ka.png class=img-responsive alt="Installer Addon for NetApp Trident using kubectl - Update"></a></div><div class="name same-height-always"><h5><a href=https://hungry-carson-5114f7.netlify.app/blog/2021/01/22/tridentautomatedinstall_update/>Installer Addon for NetApp Trident using kubectl - Update</a></h5></div></div><div class="item same-height-row clearfix"><div class="image same-height-always"><a href=https://hungry-carson-5114f7.netlify.app/blog/2020/09/10/tridentautomatedinstall/><img src=https://hungry-carson-5114f7.netlify.app//img/ka.png class=img-responsive alt="Automated install of NetApp Trident using kubectl"></a></div><div class="name same-height-always"><h5><a href=https://hungry-carson-5114f7.netlify.app/blog/2020/09/10/tridentautomatedinstall/>Automated install of NetApp Trident using kubectl</a></h5></div></div><div class="item same-height-row clearfix"><div class="image same-height-always"><a href=https://hungry-carson-5114f7.netlify.app/blog/2020/05/08/netapp-ansible-with-hcav/><img src=https://hungry-carson-5114f7.netlify.app/img/netapp-ansible-hasicorp.png class=img-responsive alt="NetApp Ansible Authentication with Hashicorp Vault"></a></div><div class="name same-height-always"><h5><a href=https://hungry-carson-5114f7.netlify.app/blog/2020/05/08/netapp-ansible-with-hcav/>NetApp Ansible Authentication with Hashicorp Vault</a></h5></div></div></div><hr class="hidden-md hidden-lg"></div></div></footer><div id=copyright><div class=container><div class=col-md-12><p class=pull-left>Copyright (c) 2019, Fabian Born; all rights reserved.</p><p class=pull-right>Template by <a href=http://bootstrapious.com/free-templates>Bootstrapious</a>.</p></div></div></div></div><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-144284829-1','auto'),ga('send','pageview'))</script><script src=//code.jquery.com/jquery-3.1.1.min.js integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin=anonymous></script><script src=//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js integrity=sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa crossorigin=anonymous></script><script src=//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0/jquery.counterup.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax.js></script><script src="//maps.googleapis.com/maps/api/js?v=3.exp"></script><script src=https://hungry-carson-5114f7.netlify.app/js/hpneo.gmaps.js></script><script src=https://hungry-carson-5114f7.netlify.app/js/gmaps.init.js></script><script src=https://hungry-carson-5114f7.netlify.app/js/front.js></script><script src=https://hungry-carson-5114f7.netlify.app/js/owl.carousel.min.js></script></body></html>
+</code></pre></div><p>If you start with post one, you have two VPN Gateways running. The next step is to setup the connection between Azure and Google or you can create a VPN gateway on <a href=https://aws.amazon.com title=AWS>aws</a></p>
+<p>The next post will show you, how you can setup the relationship betweenn Azure and Google. It will be available as soon as possible :-).</p>
+<p>Update (2019-09-30): The next post is available: <a href=/blog/2019/09/30/multicloudconnect-w-ansible-connect/>&ldquo;Multicloud Connect with Ansible: The Connection&rdquo;</a></p>
+</div>
+</div>
+<div class=col-md-3>
+<div class="panel panel-default sidebar-menu">
+<div class=panel-heading>
+<h3 class=panel-title>Search</h3>
+</div>
+<div class=panel-body>
+<form action=//google.com/search method=get accept-charset=utf-8 role=search>
+<div class=input-group>
+<input type=search name=q class=form-control placeholder=Search>
+<input type=hidden name=sitesearch value=http://192.168.69.22:1313/>
+<span class=input-group-btn>
+<button type=submit class="btn btn-template-main"><i class="fa fa-search"></i></button>
+</span>
+</div>
+</form>
+</div>
+</div>
+<div class="panel panel-default sidebar-menu">
+<div class=panel-heading>
+<h3 class=panel-title>Categories</h3>
+</div>
+<div class=panel-body>
+<ul class="nav nav-pills nav-stacked">
+<li><a href=http://192.168.69.22:1313/categories/ansible>ansible (4)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/automation>automation (6)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/cloud>cloud (3)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/devops>devops (4)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/docker>docker (2)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/hashicorp>hashicorp (1)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/homematic>homematic (2)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/jenkins>jenkins (2)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/kubernetes>kubernetes (4)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/netapp>netapp (4)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/powershell>powershell (1)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/trident>trident (4)</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="panel sidebar-menu">
+<div class=panel-heading>
+<h3 class=panel-title>Tags</h3>
+</div>
+<div class=panel-body>
+<ul class=tag-cloud>
+<li><a href=http://192.168.69.22:1313/tags/ansible><i class="fa fa-tags"></i> ansible</a>
+</li>
+<li><a href=http://192.168.69.22:1313/tags/automation><i class="fa fa-tags"></i> automation</a>
+</li>
+<li><a href=http://192.168.69.22:1313/tags/cloud><i class="fa fa-tags"></i> cloud</a>
+</li>
+<li><a href=http://192.168.69.22:1313/tags/hashicorp><i class="fa fa-tags"></i> hashicorp</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer id=footer>
+<div class=container>
+<div class="col-md-4 col-sm-6">
+<h4>About us</h4>
+<hr class="hidden-md hidden-lg hidden-sm">
+</div>
+<div class="col-md-4 col-sm-6">
+<h4>Recent posts</h4>
+<div class=blog-entries>
+<div class="item same-height-row clearfix">
+<div class="image same-height-always">
+<a href=http://192.168.69.22:1313/blog/2021/01/22/tridentautomatedinstall_update/>
+<img src=http://192.168.69.22:1313//img/autotridentupdate.png class=img-responsive alt="Installer Addon for NetApp Trident using kubectl - Update">
+</a>
+</div>
+<div class="name same-height-always">
+<h5><a href=http://192.168.69.22:1313/blog/2021/01/22/tridentautomatedinstall_update/>Installer Addon for NetApp Trident using kubectl - Update</a></h5>
+</div>
+</div>
+<div class="item same-height-row clearfix">
+<div class="image same-height-always">
+<a href=http://192.168.69.22:1313/blog/2020/09/10/tridentautomatedinstall/>
+<img src=http://192.168.69.22:1313//img/autotrident.png class=img-responsive alt="Automated install of NetApp Trident using kubectl">
+</a>
+</div>
+<div class="name same-height-always">
+<h5><a href=http://192.168.69.22:1313/blog/2020/09/10/tridentautomatedinstall/>Automated install of NetApp Trident using kubectl</a></h5>
+</div>
+</div>
+<div class="item same-height-row clearfix">
+<div class="image same-height-always">
+<a href=http://192.168.69.22:1313/blog/2020/05/08/netapp-ansible-with-hcav/>
+<img src=http://192.168.69.22:1313/img/netapp-ansible-hasicorp.png class=img-responsive alt="NetApp Ansible Authentication with Hashicorp Vault">
+</a>
+</div>
+<div class="name same-height-always">
+<h5><a href=http://192.168.69.22:1313/blog/2020/05/08/netapp-ansible-with-hcav/>NetApp Ansible Authentication with Hashicorp Vault</a></h5>
+</div>
+</div>
+</div>
+<hr class="hidden-md hidden-lg">
+</div>
+</div>
+</footer>
+<div id=copyright>
+<div class=container>
+<div class=col-md-12>
+<p class=pull-left>Copyright (c) 2021, Fabian Born; all rights reserved.</p>
+<p class=pull-right>
+Template by <a href=http://bootstrapious.com/free-templates>Bootstrapious</a>.
+</p>
+</div>
+</div>
+</div>
+</div>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-144284829-1','auto'),ga('send','pageview'))</script>
+<script src=//code.jquery.com/jquery-3.1.1.min.js integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin=anonymous></script>
+<script src=//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js integrity=sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa crossorigin=anonymous></script>
+<script src=//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js></script>
+<script src=//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js></script>
+<script src=//cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0/jquery.counterup.min.js></script>
+<script src=//cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax.js></script>
+<script src="//maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src=http://192.168.69.22:1313/js/hpneo.gmaps.js></script>
+<script src=http://192.168.69.22:1313/js/gmaps.init.js></script>
+<script src=http://192.168.69.22:1313/js/front.js></script>
+<script src=http://192.168.69.22:1313/js/owl.carousel.min.js></script>
+</body>
+</html>
