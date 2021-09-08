@@ -1,0 +1,347 @@
+<!doctype html><html lang=en-us>
+<head>
+<meta charset=utf-8>
+<meta name=robots content="all,follow">
+<meta name=googlebot content="index,follow,snippet,archive">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>NetApp Ansible Authentication with Hashicorp Vault</title>
+<meta name=author content>
+<meta name=keywords content="Fabian Born,hugo,go">
+<meta name=generator content="Hugo 0.88.1">
+<link href="//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800" rel=stylesheet type=text/css>
+<link rel=stylesheet href=//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css>
+<link rel=stylesheet href=//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css integrity=sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u crossorigin=anonymous>
+<link href=/css/animate.css rel=stylesheet>
+<link href=/css/style.blue.css rel=stylesheet id=theme-stylesheet>
+<link href=/css/custom.css rel=stylesheet><!--[if lt IE 9]><script src=https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js></script>
+<script src=https://oss.maxcdn.com/respond/1.4.2/respond.min.js></script><![endif]-->
+<link rel="shortcut icon" href=/img/favicon.ico type=image/x-icon>
+<link rel=apple-touch-icon href=/img/apple-touch-icon.png>
+<link href=/css/owl.carousel.css rel=stylesheet>
+<link href=/css/owl.theme.css rel=stylesheet>
+<link rel=alternate href=http://192.168.69.22:1313/index.xml type=application/rss+xml title="-:: Cloud is yours and all the new things ::-">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:site content="@NTAPFabian">
+<meta name=twitter:title content="NetApp Ansible Authentication with Hashicorp Vault">
+<meta name=twitter:image content="http://192.168.69.22:1313/img/netapp-ansible-hasicorp.png">
+<meta name=twitter:description content>
+<meta property="og:title" content="NetApp Ansible Authentication with Hashicorp Vault">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://192.168.69.22:1313/blog/2020/05/08/netapp-ansible-with-hcav//">
+<meta property="og:image" content="img/logo.png">
+</head>
+<body>
+<div id=all>
+<header>
+<div class=navbar-affixed-top data-spy=affix data-offset-top=200>
+<div class="navbar navbar-default yamm" role=navigation id=navbar>
+<div class=container>
+<div class=navbar-header>
+<a class="navbar-brand home" href=http://192.168.69.22:1313/>
+<img src=http://192.168.69.22:1313/img/logo.png alt="NetApp Ansible Authentication with Hashicorp Vault logo" class="hidden-xs hidden-sm">
+<img src=http://192.168.69.22:1313/img/logo.png alt="NetApp Ansible Authentication with Hashicorp Vault logo" class="visible-xs visible-sm">
+<span class=sr-only>NetApp Ansible Authentication with Hashicorp Vault - go to homepage</span>
+</a>
+<div class=navbar-buttons>
+<button type=button class="navbar-toggle btn-template-main" data-toggle=collapse data-target=#navigation>
+<span class=sr-only>Toggle Navigation</span>
+<i class="fa fa-align-justify"></i>
+</button>
+</div>
+</div>
+<div class="navbar-collapse collapse" id=navigation>
+<ul class="nav navbar-nav navbar-right">
+<li class=dropdown>
+<a href=/>Home</a>
+</li>
+<li class="dropdown active">
+<a href=/blog/>Blog</a>
+</li>
+<li class=dropdown>
+<a href=# class=dropdown-toggle data-toggle=dropdown role=button aria-haspopup=true aria-expanded=false>Community <span class=caret></span></a>
+<ul class=dropdown-menu>
+<li><a href=https://login.epicshit.io/signin/register>Sign Up</a></li>
+<li><a href=https://login.epicshit.io>Login</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="collapse clearfix" id=search>
+<form class=navbar-form role=search>
+<div class=input-group>
+<input type=text class=form-control placeholder=Search>
+<span class=input-group-btn>
+<button type=submit class="btn btn-template-main"><i class="fa fa-search"></i></button>
+</span>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</header>
+<div id=heading-breadcrumbs>
+<div class=container>
+<div class=row>
+<div class=col-md-12>
+<h1>NetApp Ansible Authentication with Hashicorp Vault</h1>
+</div>
+</div>
+</div>
+</div>
+<div id=content>
+<div class=container>
+<div class=row>
+<div class=col-md-9 id=blog-post>
+<p class="text-muted text-uppercase mb-small text-right">By <a href=#>Fabian Born</a> | May 8, 2020</p>
+<div id=post-content>
+<h2 id=netapp-ansible-authentication-with-hashicorp-vault>NetApp Ansible Authentication with Hashicorp Vault</h2>
+<p>Today I want to show how to use NetApp Ansible Modules together with a Credential Store. Although Ansible comes also with a vault, but I decided to use Hashicorp Vault today.</p>
+<p>The advantage of Hashicorp Vault is that you have a central management of credentials. The credential store can also be designed redundantly. The installation is easy and very fast.</p>
+<p>All actions described here can also be done via WebUI. But the CLI is much easier ;-)</p>
+<h4 id=preparation-of-credential-store-for-netapp-systems>Preparation of credential store for NetApp systems</h4>
+<h5 id=credential-store>Credential Store</h5>
+<p>First you have to create the secret store. There are two possibilities here:</p>
+<ol>
+<li>via CLI</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ vault secrets enable -path<span style=color:#f92672>=</span>secretstore -version<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> kv
+</code></pre></div><p>oder</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ vault secrets enable -path<span style=color:#f92672>=</span>secretstore -version<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span> kv
+</code></pre></div><ol start=2>
+<li>via WebUI</li>
+</ol>
+<pre tabindex=0><code>http(s)://&lt;vaultserver&gt;:8200/
+</code></pre><p>Two versions are available for the KV (Key/Value) store. More details can be read <a href=http://www.vaultproject.io>here</a>.</p>
+<h5 id=acl-for-the-store>ACL for the store</h5>
+<p>A policy is required for the user who is to access the credential later, or an existing policy must be adapted in the following points:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=color:#960050;background-color:#1e0010>path</span> <span style=color:#e6db74>&#34;secretstore/netapp/*&#34;</span>
+{
+  <span style=color:#960050;background-color:#1e0010>capabilities</span> <span style=color:#960050;background-color:#1e0010>=</span> <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#f92672>&#34;read&#34;</span>, <span style=color:#f92672>&#34;list&#34;</span><span style=color:#960050;background-color:#1e0010>]</span>
+}
+<span style=color:#960050;background-color:#1e0010>//</span> <span style=color:#960050;background-color:#1e0010>add</span> <span style=color:#960050;background-color:#1e0010>the</span> <span style=color:#960050;background-color:#1e0010>right</span> <span style=color:#960050;background-color:#1e0010>for</span> <span style=color:#960050;background-color:#1e0010>create</span> <span style=color:#960050;background-color:#1e0010>tokens</span>
+<span style=color:#960050;background-color:#1e0010>path</span> <span style=color:#e6db74>&#34;auth/token/*&#34;</span>
+{
+  <span style=color:#960050;background-color:#1e0010>capabilities</span> <span style=color:#960050;background-color:#1e0010>=</span> <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#f92672>&#34;create&#34;</span>, <span style=color:#f92672>&#34;update&#34;</span><span style=color:#960050;background-color:#1e0010>]</span>
+}
+</code></pre></div><h5 id=creating-an-account-and-access-token-for-ansible>Creating an account and access token for Ansible</h5>
+<p>To create an access token you need an account to access the vault:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># Login as Administrator #</span>
+<span style=color:#75715e>##########################</span>
+$ vault write auth/userpass/users/netapp-ansible password<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;securepassword&#34;</span> policies<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;read-netapp-credential&#34;</span>
+Success! Data written to: auth/userpass/users/netapp-ansible
+</code></pre></div><h5 id=create-token>Create token</h5>
+<p>First you have to login with your account:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># Login as netapp-ansible #</span>
+<span style=color:#75715e>##########################</span>
+$ vault login -method<span style=color:#f92672>=</span>userpass username<span style=color:#f92672>=</span>netapp-ansible
+
+Password <span style=color:#f92672>(</span>will be hidden<span style=color:#f92672>)</span>: 
+Success! You are now authenticated. The token information displayed below
+is already stored in the token helper. You <span style=color:#66d9ef>do</span> NOT need to run <span style=color:#e6db74>&#34;vault login&#34;</span>
+again. Future Vault requests will automatically use this token.
+
+Key                    Value
+---                    -----
+token                  s.F7QmKFkb8BL7RltxPjb0VmeP
+...
+token_policies         <span style=color:#f92672>[</span><span style=color:#e6db74>&#34;default&#34;</span> <span style=color:#e6db74>&#34;read-netapp-credential&#34;</span><span style=color:#f92672>]</span>
+token_meta_username    netapp-ansible
+</code></pre></div><p>After the successful login, we can create an access token for the user:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ vault token create -policy<span style=color:#f92672>=</span>read-netapp-credential  -display-name<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;NetApp Ansible Token&#39;</span>
+
+
+Key                  Value
+---                  -----
+token                s.ZHlgLUVI1FVcT0VPxcCa6OTM
+token_accessor       6TK5JIxqOuXOgbphf0IVgWVB
+token_duration       768h
+token_renewable      true
+token_policies       <span style=color:#f92672>[</span><span style=color:#e6db74>&#34;default&#34;</span> <span style=color:#e6db74>&#34;read-netapp-credential&#34;</span><span style=color:#f92672>]</span>
+identity_policies    <span style=color:#f92672>[]</span>
+policies             <span style=color:#f92672>[</span><span style=color:#e6db74>&#34;default&#34;</span> <span style=color:#e6db74>&#34;read-netapp-credential&#34;</span><span style=color:#f92672>]</span>
+</code></pre></div><h5 id=creating-the-credential-for-an-ontap-system>Creating the credential for an ONTAP system</h5>
+<p>Now we create the credentials for each Ontap system:</p>
+<ul>
+<li>Command 1) stores the password as plain text value</li>
+<li>Command 2) stores the password as base64 encoded</li>
+</ul>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ vault kv put secretstore/netapp/&lt;clustername&gt; username<span style=color:#f92672>=</span>admin-user password<span style=color:#f92672>=</span>my-secret-password
+</code></pre></div><p>base64 encode password</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ vault kv put secretstore/netapp/v2/democluster username<span style=color:#f92672>=</span>admin-user password<span style=color:#f92672>=</span><span style=color:#e6db74>`</span>echo <span style=color:#e6db74>&#34;my-secret-password&#34;</span> | base64<span style=color:#e6db74>`</span>
+</code></pre></div><p>Of course you can also do this via WebUI.</p>
+<h3 id=netapp-module-authentication>NetApp Module authentication</h3>
+<p>To use Hashicorp Vault with Ansible, we need the Python module &lsquo;hvac&rsquo;. This is simply done with the command &ldquo;pip3 install hvac&rdquo;.</p>
+<p>If you want to use the user information from the Hashicorp Vault, you just have to add the following lines to your playbook:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>    <span style=color:#f92672>hashivault</span>: <span style=color:#e6db74>&#34;{{ lookup(&#39;hashi_vault&#39;, &#39;secret=secretstore/netapp/{{ cluster }} token=s.ZHlgLUVI1FVcT0VPxcCa6OTM url=https://vault.cloudapps.fabianborn.net&#39;) }}&#34;</span>
+    <span style=color:#f92672>netapp_password</span>: <span style=color:#e6db74>&#34;{{ hashivault.password | b64decode }}&#34;</span>
+    <span style=color:#f92672>netapp_username</span>: <span style=color:#e6db74>&#34;{{ hashivault.username }}&#34;</span>
+</code></pre></div><p>Here is a simple example for the output:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>---
+- <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Demo Ansible Hashicorp Vault</span>
+  <span style=color:#f92672>hosts</span>: <span style=color:#ae81ff>localhost</span>
+  <span style=color:#f92672>connection</span>: <span style=color:#ae81ff>local</span>
+  <span style=color:#f92672>gather_facts</span>: <span style=color:#66d9ef>False</span>
+  <span style=color:#f92672>vars</span>:
+    <span style=color:#f92672>cluster</span>: <span style=color:#e6db74>&#34;democluster&#34;</span>
+    <span style=color:#f92672>hashivault</span>: <span style=color:#e6db74>&#34;{{ lookup(&#39;hashi_vault&#39;, &#39;secret=secretstore/netapp/{{ cluster }} token=s.ZHlgLUVI1FVcT0VPxcCa6OTM url=https://vault.cloudapps.fabianborn.net&#39;) }}&#34;</span>
+    <span style=color:#f92672>netapp_password</span>: <span style=color:#e6db74>&#34;{{ hashivault.password | b64decode }}&#34;</span>
+    <span style=color:#f92672>netapp_username</span>: <span style=color:#e6db74>&#34;{{ hashivault.username }}&#34;</span>
+  <span style=color:#f92672>tasks</span>:
+  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Show Password</span>
+    <span style=color:#f92672>debug</span>:
+      <span style=color:#f92672>msg</span>: <span style=color:#e6db74>&#34;{{ netapp_username}} : {{  netapp_password }} = crypted: {{ hashivault.password }}&#34;</span>
+</code></pre></div><pre tabindex=0><code class=language-output data-lang=output>$ ansible-playbook ansible-hashicorpvault.yaml 
+
+PLAY [Demo Ansible Hashicorp Vault] ***************************************************************************************************************************************************
+
+TASK [Show Password] ***************************************************************************************************************************************************************
+ok: [localhost] =&gt; {
+    &quot;msg&quot;: &quot;admin-user : netapp123 = crypted: bmV0YXBwMTIz&quot;
+}
+
+localhost                  : ok=1    changed=0    unreachable=0    failed=0   
+</code></pre><p>Once you have filled the variables with the values, you can authenticate to NetApp. The passwords are loaded at runtime and forgotten afterwards.</p>
+<p>The token can be revoked or can be exchanged at any time. Of course, other authentication options such as LDAP, AD, Github or similar are also possible. Just have a look at the Hashikorp documentation for that.</p>
+</div>
+</div>
+<div class=col-md-3>
+<div class="panel panel-default sidebar-menu">
+<div class=panel-heading>
+<h3 class=panel-title>Search</h3>
+</div>
+<div class=panel-body>
+<form action=//google.com/search method=get accept-charset=utf-8 role=search>
+<div class=input-group>
+<input type=search name=q class=form-control placeholder=Search>
+<input type=hidden name=sitesearch value=http://192.168.69.22:1313/>
+<span class=input-group-btn>
+<button type=submit class="btn btn-template-main"><i class="fa fa-search"></i></button>
+</span>
+</div>
+</form>
+</div>
+</div>
+<div class="panel panel-default sidebar-menu">
+<div class=panel-heading>
+<h3 class=panel-title>Categories</h3>
+</div>
+<div class=panel-body>
+<ul class="nav nav-pills nav-stacked">
+<li><a href=http://192.168.69.22:1313/categories/ansible>ansible (4)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/automation>automation (6)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/cloud>cloud (3)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/devops>devops (4)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/docker>docker (2)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/hashicorp>hashicorp (1)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/homematic>homematic (2)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/jenkins>jenkins (2)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/kubernetes>kubernetes (4)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/netapp>netapp (4)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/powershell>powershell (1)</a>
+</li>
+<li><a href=http://192.168.69.22:1313/categories/trident>trident (4)</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="panel sidebar-menu">
+<div class=panel-heading>
+<h3 class=panel-title>Tags</h3>
+</div>
+<div class=panel-body>
+<ul class=tag-cloud>
+<li><a href=http://192.168.69.22:1313/tags/ansible><i class="fa fa-tags"></i> ansible</a>
+</li>
+<li><a href=http://192.168.69.22:1313/tags/automation><i class="fa fa-tags"></i> automation</a>
+</li>
+<li><a href=http://192.168.69.22:1313/tags/cloud><i class="fa fa-tags"></i> cloud</a>
+</li>
+<li><a href=http://192.168.69.22:1313/tags/hashicorp><i class="fa fa-tags"></i> hashicorp</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer id=footer>
+<div class=container>
+<div class="col-md-4 col-sm-6">
+<h4>About us</h4>
+<hr class="hidden-md hidden-lg hidden-sm">
+</div>
+<div class="col-md-4 col-sm-6">
+<h4>Recent posts</h4>
+<div class=blog-entries>
+<div class="item same-height-row clearfix">
+<div class="image same-height-always">
+<a href=http://192.168.69.22:1313/blog/2021/01/22/tridentautomatedinstall_update/>
+<img src=http://192.168.69.22:1313//img/autotridentupdate.png class=img-responsive alt="Installer Addon for NetApp Trident using kubectl - Update">
+</a>
+</div>
+<div class="name same-height-always">
+<h5><a href=http://192.168.69.22:1313/blog/2021/01/22/tridentautomatedinstall_update/>Installer Addon for NetApp Trident using kubectl - Update</a></h5>
+</div>
+</div>
+<div class="item same-height-row clearfix">
+<div class="image same-height-always">
+<a href=http://192.168.69.22:1313/blog/2020/09/10/tridentautomatedinstall/>
+<img src=http://192.168.69.22:1313//img/autotrident.png class=img-responsive alt="Automated install of NetApp Trident using kubectl">
+</a>
+</div>
+<div class="name same-height-always">
+<h5><a href=http://192.168.69.22:1313/blog/2020/09/10/tridentautomatedinstall/>Automated install of NetApp Trident using kubectl</a></h5>
+</div>
+</div>
+<div class="item same-height-row clearfix">
+<div class="image same-height-always">
+<a href=http://192.168.69.22:1313/blog/2020/05/08/netapp-ansible-with-hcav/>
+<img src=http://192.168.69.22:1313/img/netapp-ansible-hasicorp.png class=img-responsive alt="NetApp Ansible Authentication with Hashicorp Vault">
+</a>
+</div>
+<div class="name same-height-always">
+<h5><a href=http://192.168.69.22:1313/blog/2020/05/08/netapp-ansible-with-hcav/>NetApp Ansible Authentication with Hashicorp Vault</a></h5>
+</div>
+</div>
+</div>
+<hr class="hidden-md hidden-lg">
+</div>
+</div>
+</footer>
+<div id=copyright>
+<div class=container>
+<div class=col-md-12>
+<p class=pull-left>Copyright (c) 2021, Fabian Born; all rights reserved.</p>
+<p class=pull-right>
+Template by <a href=http://bootstrapious.com/free-templates>Bootstrapious</a>.
+</p>
+</div>
+</div>
+</div>
+</div>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-144284829-1','auto'),ga('send','pageview'))</script>
+<script src=//code.jquery.com/jquery-3.1.1.min.js integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin=anonymous></script>
+<script src=//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js integrity=sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa crossorigin=anonymous></script>
+<script src=//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js></script>
+<script src=//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js></script>
+<script src=//cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0/jquery.counterup.min.js></script>
+<script src=//cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax.js></script>
+<script src="//maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src=http://192.168.69.22:1313/js/hpneo.gmaps.js></script>
+<script src=http://192.168.69.22:1313/js/gmaps.init.js></script>
+<script src=http://192.168.69.22:1313/js/front.js></script>
+<script src=http://192.168.69.22:1313/js/owl.carousel.min.js></script>
+</body>
+</html>
