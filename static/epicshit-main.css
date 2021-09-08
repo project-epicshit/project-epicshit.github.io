@@ -1,0 +1,11 @@
+body,html {
+    background-image: url('https://blog.fabianborn.net/img/xhiRfL6.jpg');
+    height: 100%;
+}
+
+#profile-img {
+    height:180px;
+}
+.h-80 {
+    height: 80% !important;
+}

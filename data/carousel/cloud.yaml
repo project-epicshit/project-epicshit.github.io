@@ -1,0 +1,8 @@
+weight: 2
+title: "Cloud"
+description: >
+  <ul class="list-style-none">
+     <li>Automation</li>
+     <li>in Multi Cloud Environment</li>
+   </ul>
+image: "img/carousel/cloud.png"
