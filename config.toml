@@ -36,34 +36,56 @@ paginate = 25
     weight     = 2
 
 [[menu.main]]
-    name       = "all Blog Posts"
+    name       = "Blog Posts"
     identifier = "section.blogpost"
-    url        = "/blog/"
+    url        = ""
     weight     = 1
     parent     = "menu.blog"
     post       = 1
-
 [[menu.main]]
-    name       = "Automation"
-    url        = "/categories/automation/"
+    name       = "all Posts"
+    url        = "/blog/"
     weight     = 1
     parent     = "section.blogpost"
 
+[[menu.main]]
+    name       = "DevOps"
+    url        = "/categories/devops/"
+    weight     = 2
+    parent     = "section.blogpost"
+
+[[menu.main]]
+    name       = "Cloud"
+    url        = "/categories/cloud/"
+    weight     = 3
+    parent     = "section.blogpost"
+[[menu.main]]
+    name       = "NetApp"
+    url        = "/categories/netapp/"
+    weight     = 4
+    parent     = "section.blogpost"
 [[menu.main]]
     name       = "Community"
     identifier = "menu.community"
     url        = "https://connectedindustry.net/wp-content/uploads/sites/18/2016/11/icon-community-300x234.png"
     weight     = 3
 [[menu.main]]
+    name       = "Blog Posts"
+    identifier = "section.community"
+    url        = ""
+    weight     = 1
+    parent     = "menu.community"
+    post       = 1
+[[menu.main]]
     name       = "Sign Up"
     url        = "https://login.epicshit.io/signin/register"
     weight     = 1
-    parent     = "menu.community"
+    parent     = "section.community"
 [[menu.main]]
     name       = "Login"
     url        = "https://login.epicshit.io"
     weight     = 2
-    parent     = "menu.community"
+    parent     = "section.community"
 
 # Top bar social links menu
 
