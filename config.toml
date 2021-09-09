@@ -1,5 +1,4 @@
-baseurl = "https://hungry-carson-5114f7.netlify.app"
-#baseurl = "http://192.168.69.22:1313/"
+baseurl = "https://project.epicshit.io"
 title = "-:: Cloud is yours and all the new things ::-"
 theme = "hugo-universal-theme"
 themesDir = "./themes"
