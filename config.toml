@@ -32,7 +32,7 @@ paginate = 25
 [[menu.main]]
     name       = "Blog"
     identifier = "menu.blog"
-    url        = "/img/template-easy-customize.png"
+    url        = "/img/blogging.png"
     weight     = 2
 
 [[menu.main]]
