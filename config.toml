@@ -24,11 +24,30 @@ paginate = 25
     url  = "/"
     weight = 1
 
+# [[menu.main]]
+#    identifier="blog"
+#    name = "Blog"
+#    url  = "/blog/"
+#    weight = 2
 [[menu.main]]
-    identifier="blog"
-    name = "Blog"
-    url  = "/blog/"
-    weight = 2
+    name       = "Blog"
+    identifier = "menu.blog"
+    url        = "/img/template-easy-customize.png"
+    weight     = 2
+
+[[menu.main]]
+    name       = "all Blog Posts"
+    identifier = "section.blogpost"
+    url        = "/blog/"
+    weight     = 1
+    parent     = "menu.blog"
+    post       = 1
+
+[[menu.main]]
+    name       = "Automation"
+    url        = "/categories/automation/"
+    weight     = 1
+    parent     = "section.blogpost"
 
 [[menu.main]]
     name       = "Community"
