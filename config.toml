@@ -24,11 +24,6 @@ paginate = 25
     url  = "/"
     weight = 1
 
-# [[menu.main]]
-#    identifier="blog"
-#    name = "Blog"
-#    url  = "/blog/"
-#    weight = 2
 [[menu.main]]
     name       = "Blog"
     identifier = "menu.blog"
@@ -42,6 +37,7 @@ paginate = 25
     weight     = 1
     parent     = "menu.blog"
     post       = 1
+
 [[menu.main]]
     name       = "all Posts"
     url        = "/blog/"
@@ -59,16 +55,19 @@ paginate = 25
     url        = "/categories/cloud/"
     weight     = 3
     parent     = "section.blogpost"
+
 [[menu.main]]
     name       = "NetApp"
     url        = "/categories/netapp/"
     weight     = 4
     parent     = "section.blogpost"
+
 [[menu.main]]
     name       = "Community"
     identifier = "menu.community"
     url        = "https://connectedindustry.net/wp-content/uploads/sites/18/2016/11/icon-community-300x234.png"
     weight     = 3
+
 [[menu.main]]
     name       = "Enter Community"
     identifier = "section.community"
@@ -76,11 +75,13 @@ paginate = 25
     weight     = 1
     parent     = "menu.community"
     post       = 1
+
 [[menu.main]]
     name       = "Sign Up"
     url        = "https://login.epicshit.io/signin/register"
     weight     = 1
     parent     = "section.community"
+
 [[menu.main]]
     name       = "Login"
     url        = "https://login.epicshit.io"
@@ -92,26 +93,19 @@ paginate = 25
 [[menu.topbar]]
     weight = 1
     name = "GitHub"
-    url = "https://github.com/fabian-born"
+    url = "https://github.com/project-epicshit"
     pre = "<i class='fa fa-2x fa-github'></i>"
 
 [[menu.topbar]]
-    weight = 2 
-    name = "Gitlab"
-    url = "https://gitlab.com/fabianborn"
-    pre = "<i class='fa fa-2x fa-gitlab'></i>"
-
-
-[[menu.topbar]]
-    weight = 3
-    name = "Twitter"
+    weight = 2
+    name = "NTAPFabian"
     url = "http://twitter.com"
     pre = "<i class='fa fa-2x fa-twitter'></i>"
 
 [[menu.topbar]]
     weight = 4
     name = "Email"
-    url = "mailto:me@fabianborn.net"
+    url = "mailto:contact@epicshit.io"
     pre = "<i class='fa fa-2x fa-envelope'></i>"
 
 [params]
@@ -143,7 +137,7 @@ paginate = 25
     # - you're done. Happy mailing!
     #
     # Enable the contact form by entering your Formspree.io email
-    email = "me@fabianborn.net"
+    email = "contact@epicshit.io"
     contact_form_ajax = true
 
     about_us = "<p>That's all my own thoughts.</p>"
@@ -154,15 +148,15 @@ paginate = 25
 
     logo = "img/logo.png"
     logo_small = "img/logo.png"
- #   address = """<p><strong></strong>
+    address = """<p><strong></strong>
  #       <br>13/25 New Avenue
  #       <br>Newtown upon River
  #       <br>45Y 73J
  #       <br>England
  #       <br>
- #       <strong>Great Britain</strong>
- #     </p>
- #     """
+        <strong>Great Britain</strong>
+      </p>
+      """
  #   latitude = "-12.043333"
  #   longitude = "-77.028333"
 
