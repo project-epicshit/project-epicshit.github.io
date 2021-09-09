@@ -93,7 +93,7 @@ paginate = 25
     weight = 1
     name = "GitHub"
     url = "https://github.com/project-epicshit"
-    pre = "<i class='fa fa-2x fa-github'></i>"
+    pre = "<i class='fab fa-2x fa-github'></i>"
 
 [[menu.topbar]]
     weight = 2
@@ -102,10 +102,16 @@ paginate = 25
     pre = "<i class='fab fa-2x fa-twitter'></i>"
 
 [[menu.topbar]]
-    weight = 4
+    weight = 3
     name = "Email"
     url = "mailto:contact@epicshit.io"
-    pre = "<i class='fa fa-2x fa-envelope'></i>"
+    pre = "<i class='fab fa-2x fa-envelope'></i>"
+
+[[menu.topbar]]
+    weight = 4
+    name = "Contact"
+    url = "https://fabianborn.net"
+    pre = "<i class='fab fa-2x fa-blog'></i>"
 
 [params]
     viewMorePostLink = "/blog/"
