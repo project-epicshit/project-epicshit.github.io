@@ -98,20 +98,20 @@ paginate = 25
 [[menu.topbar]]
     weight = 2
     name = "NTAPFabian"
-    url = "http://twitter.com"
+    url = "http://twitter.com/NTAPFabian"
     pre = "<i class='fab fa-2x fa-twitter'></i>"
 
 [[menu.topbar]]
     weight = 3
     name = "Email"
     url = "mailto:contact@epicshit.io"
-    pre = "<i class='fab fa-2x fa-envelope'></i>"
+    pre = "<i class='fa fa-2x fa-envelope'></i>"
 
 [[menu.topbar]]
     weight = 4
     name = "Contact"
     url = "https://fabianborn.net"
-    pre = "<i class='fab fa-2x fa-blog'></i>"
+    pre = "<i class='fas fa-2x fa-blog'></i>"
 
 [params]
     viewMorePostLink = "/blog/"
