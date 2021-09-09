@@ -70,7 +70,7 @@ paginate = 25
     url        = "https://connectedindustry.net/wp-content/uploads/sites/18/2016/11/icon-community-300x234.png"
     weight     = 3
 [[menu.main]]
-    name       = "Blog Posts"
+    name       = "Enter Community"
     identifier = "section.community"
     url        = ""
     weight     = 1
@@ -177,6 +177,8 @@ paginate = 25
       <a href="#" data-animate-hover="pulse"><i class="fa fa-envelope"></i></a>
       </p>
       """
+
+
 
 # Enable and disable widgets for the right sidebar
 [params.widgets]
