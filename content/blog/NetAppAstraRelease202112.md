@@ -13,11 +13,13 @@ Today NetApp released the new release of Astra Control Center. ACC provides the 
 Besides the classic bugfixing there are now a few new features:
 
 ✅ In-place restore
+
 ✅ Execution hook
+
 ✅ Support for additional Kubernetes distributions
 
 I have summarized how the first two features work in a video.
 
-The video is available in German for now. [Astra Control Center - new feature](https://img.youtube.com/vi/zOYvFYP-Xnk/0.jpg)](https://www.youtube.com/watch?v=zOYvFYP-Xnk) 
+[![Astra Control Center - new feature](https://img.youtube.com/vi/zOYvFYP-Xnk/0.jpg)](https://www.youtube.com/watch?v=zOYvFYP-Xnk) 
 
-Enjoy listening 😉
+The video is available in German for now. Enjoy listening 😉
