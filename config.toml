@@ -77,13 +77,13 @@ paginate = 25
 
 [[menu.main]]
     name       = "Sign Up"
-    url        = "https://login.epicshit.io/signin/register"
+    url        = "https://auth.epicshit.io/if/flow/default-enrollment-flow/"
     weight     = 1
     parent     = "section.community"
 
 [[menu.main]]
     name       = "Login"
-    url        = "https://login.epicshit.io"
+    url        = "https://auth.epicshit.io"
     weight     = 2
     parent     = "section.community"
 
