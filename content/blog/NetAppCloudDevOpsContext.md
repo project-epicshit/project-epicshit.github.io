@@ -1,6 +1,6 @@
 ---
 title: "NetApp in a Cloud DevOps Context!"
-date:  2022-02-08T08:00:00+02:00
+date:  2022-02-08T00:00:00+02:00
 draft: false
 categories: ["NetApp","Docker","Kubernetes","Trident","DevOps","Azure","GCP","AstraControl"]
 banner: /na_devops.png
@@ -13,7 +13,7 @@ layout: post
 # NetApp in a Cloud DevOps Context!
 Are you running a Kubernetes platform in the cloud based on cloud provider native services today? Then let me show you how NetApp can help to optimize this environment.
  
-Each cloud provider uses its own storage products for its Kubernetes services, which are addressed via the CSI driver. In a NetApp optimized world, the "standard" driver will be replaced by Astra Trident. With Trident, it is now possible to use PVC on a cloud-optimized ONTAP: Cloud Volume Service, Azure NetApp Files or FSX for ONTAP are the perfect solutions. In addition to the technical highlights, such as snapshots/clones, cost savings can be achieved through efficient data storage, deduplication/compression and cold data tiering.
+Each cloud provider uses its own storage products for its Kubernetes services, which are addressed via the CSI driver. In a NetApp optimized world, the "standard" driver will be replaced by Astra Trident. With Trident, it is now possible to use PVC on a cloud-optimized ONTAP: Cloud Volume Service, Azure NetApp Files, Cloud Volume ONTAP or FSx for NetApp ONTAP are the perfect solutions. In addition to the technical highlights, such as snapshots/clones, cost savings can be achieved through efficient data storage, deduplication/compression and cold data tiering.
 
 Further optimization of the Kubernetes environment can be brought about by implementing the services of SPOT.IO: Automatic cost optimization of the Kubernetes server infrastructure with Ocean. Who does not know it, there comes the request from the business department to the environment and at the end of the day, but only 10% of the resources are used. Remedy for this: Together with Spot Instances, Ocean monitors the workload of the Kubernetes cluster - number of running pods, CPU / RAM utilization, etc. - and can, fully automated, add or remove additional resources.
  
