@@ -1,5 +1,5 @@
 ---
-title: "Build your DevOps Environment - Part 1!"
+title: "Build your DevOps Environment!"
 date:  2022-02-08T00:00:00+02:00
 draft: true
 categories: ["NetApp","Docker","Kubernetes","Trident","DevOps","Azure","GCP","AstraControl"]
@@ -7,26 +7,55 @@ banner: /na_devops.png
 layout: post
 ---
 
-Im LinkedIn Post "NetApp in a Cloud DevOps Context" wurde aufgezeigt, wie eine optimierte Kubernetes Umgebung in der Cloud aussehen kann. Diese Artikelserie zeigt nun wie man automatisiert eine solche Umgebung aufbauen kann.
+The LinkedIn post "NetApp in a Cloud DevOps Context" showed how an optimized Kubernetes environment can look in the cloud. This series of articles now show how to build such an environment in an automated way.
 
-Es gibt bzw. wird vier Teile dieser Serie geben. 
-	- Teil 1: Planung
-	- Teil 2: Aufbau der benötigten Infrastruktur 
-	- Teil 3: Aktivierung des Backups 
-	- Teil 4: Monitoring und Optimierung der Umgebung
+There are or will be four parts to this series.
+
+   Part 1: Planning
+   Part 2: Setting up the required infrastructure
+   Part 3: Activation of the backup
+   Part 4: Monitoring and optimization of the environment
+   
+The cloud providers Microsoft Azure and Google Cloud Platform are used to set up the test environments. However, this is only because NetApp's Astra Control Service does not support Amazon Web Service. As soon as it is available, this will be made up for immediately.
+
+Before we start, a short note: The scripts used here can be used for testing purposes. However, I assume no liability for the use in production environments. In addition, these also generate cloud resources, which will generate costs!
+
+Deploying scripts is easy. However, you need to think about several points in advance:
+
+   Setup of the network in the cloud - IP addresses, firewall rules, etc.
+   Access rights to cloud resources
+   Licenses
+To set up a test environment, you need to register the NetApp resource provider in Azure. As soon as the registration is completed, a NetApp account must be created in Azure, in which the capacity pool and volumes will later be created.
+
+ˋˋˋ
+az account set --subscription <subscriptionId
+az provider register --namespace Microsoft.NetApp --wait
+ˋˋˋ
+
+As soon as Azure NetApp Files has been released, a NetApp account is created in a resource group that can be used for the test environment. This resource group is then also used later on.
+
+ˋˋˋ
+az netappfiles account create --resource-group <rg-name> --location <location> --account-name <anf-account-name>
+ˋˋˋ
+
+With Google Cloud, you select the Cloud Volume Service in the Market Place and accept the EULA. Before you can provision storage, however, you have to establish communication with the managed NetApp. This can be done conveniently via the GCP Cloud Console.
+
+ˋˋˋ
+## CVS "default"
+gcloud --project=<gcp-project> compute addresses create netapp-addresses-sds-default --global --purpose=VPC_PEERING --prefix-length=25 --network=default --no-user-output-enable
+
+gcloud --project=<gcp-project> services vpc-peerings connect --service=cloudvolumesgcp-sds-api-network.netapp.com --ranges=netapp-addresses-sds-default --network=default --no-user-output-enabled
+
+gcloud --project=<gcp-project> compute networks peerings update netapp-sds-nw-customer-peer --network=default --import-custom-routes --export-custom-routes
 
 
-#Das wichtigste zu erst, die Planung
+## CVS Performance
+gcloud --project=<gcp-project> compute addresses create netapp-addresses-default --global --purpose=VPC_PEERING --prefix-length=24 --network=default --no-user-output-enabled
 
-Für den Aufbau der Testumgebungen werden die Cloud Provider Microsoft Azure und Google Cloud Plattform genutzt. Liegt aber nur daran, dass NetApp's Astra Control Service Amazon Webservice nicht unterstützt. Sobald die Verfügbar wird dies sofort nachgeholt. 
-	
-Bevor es losgeht, noch ein kurzer Hinweis: Die hier verwendeten Skripte können zu testzwecken benutzt werden. Ich übernehme aber für den Einsatz in Produktiv Umgebungen keine Haftung. Zudem erzeugen diese auch Cloud Ressourcen, die Kosten erzeugen werden! 
+gcloud --project=<gcp-project> services vpc-peerings connect --service=cloudvolumesgcp-api-network.netapp.com --ranges=netapp-addresses-default --network=default --no-user-output-enabled
 
+gcloud --project=<gcp-project> compute networks peerings update netapp-cv-nw-customer-peer --network=default --import-custom-routes --export-custom-routesd
 
-Skripte deployen ist einfach. Allerdings muss man sich im Vorfeld Gedanken über verschiedene Punkte machen:
-	- Aufbau des Netzwerkes in der Cloud - IP Adressen, Firewall Regeln etc.
-	- Zugriffsrechte auf Cloud Ressourcen
-	- Lizenzen 
+ˋˋˋ
 
-
-Jeder Cloud Provider hat hier seine eigene Nomenklatur. Aber schauen wir mal
+Now that the most important preparations have been made, you can start provisioning storage. But this will be described in my next article first.
