@@ -70,7 +70,7 @@ All necessary files are on GitHub and can be downloaded at any time.
 git clone https://github.com/fabian-born/build-demo-environment.git
 ```
 The repo is structured in such a way that you have a separate folder with settings options for each cloud provider:
-![Folder Structure!](/buildenv/github-folder.png "Folder Structure")
+![Folder Structure!](/buildenv-gitfolder.png "Folder Structure")
 
 Before using the scripts, ```terraform.tfvars``` must be adapted to the cloud provider environment.
 
