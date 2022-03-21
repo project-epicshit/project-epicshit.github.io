@@ -1,6 +1,6 @@
 ---
 title: "Build your DevOps Environment!"
-date:  2022-02-08T00:00:00+02:00
+date:  2022-04-08T00:00:00+02:00
 draft: false
 categories: ["NetApp","Docker","Kubernetes","Trident","DevOps","Azure","GCP","AstraControl"]
 banner: /na_devops.png
@@ -29,36 +29,34 @@ Deploying scripts is easy. However, you need to think about several points in ad
 ### Preparation of the Cloud Provider Environments
 To set up a test environment, you need to register the NetApp resource provider in Azure. As soon as the registration is completed, a NetApp account must be created in Azure, in which the capacity pool and volumes will later be created.
 
-```
+```bash
 az account set --subscription <subscriptionId>
 ```
 
 As soon as Azure NetApp Files has been released, a NetApp account is created in a resource group that can be used for the test environment. This resource group is then also used later on.
 
-```
+```bash
 az netappfiles account create --resource-group <rg-name> --location <location> --account-name <anf-account-name>
 ```
 
 With Google Cloud, you select the Cloud Volume Service in the Market Place and accept the EULA. Before you can provision storage, however, you have to establish communication with the managed NetApp. This can be done conveniently via the GCP Cloud Console.
 
-```
+```bash
 ## CVS "default"
 gcloud --project=<gcp-project> compute addresses create netapp-addresses-sds-default --global --purpose=VPC_PEERING --prefix-length=25 --network=default --no-user-output-enable
-
 gcloud --project=<gcp-project> services vpc-peerings connect --service=cloudvolumesgcp-sds-api-network.netapp.com --ranges=netapp-addresses-sds-default --network=default --no-user-output-enabled
-
 gcloud --project=<gcp-project> compute networks peerings update netapp-sds-nw-customer-peer --network=default --import-custom-routes --export-custom-routes
 
 
 ## CVS Performance
 gcloud --project=<gcp-project> compute addresses create netapp-addresses-default --global --purpose=VPC_PEERING --prefix-length=24 --network=default --no-user-output-enabled
-
 gcloud --project=<gcp-project> services vpc-peerings connect --service=cloudvolumesgcp-api-network.netapp.com --ranges=netapp-addresses-default --network=default --no-user-output-enabled
 
 gcloud --project=<gcp-project> compute networks peerings update netapp-cv-nw-customer-peer --network=default --import-custom-routes --export-custom-routesd
 ```
 
 Now you can start provisioning storage.
+
 
 ### Deploying the infrastructure
 Now that the basics are in place, this article looks at deploying Kubernetes platforms to cloud providers (Microsoft Azure and Google Cloud). Of course, Kubernetes clusters can be deployed manually based on virtual machines. However, in an optimized environment, the cloud provider native services should be used: i.e. Azure Kubernetes Service or Google Kubernetes Engine.
@@ -76,7 +74,7 @@ Before using the scripts, ```terraform.tfvars``` must be adapted to the cloud pr
 
 #### For Azure
 ```bash
-az_appId  = "
+az_appId  = ""
 ## AppPassword
 az_password = ""
 ## TenantID
@@ -87,12 +85,12 @@ az_anfaccount = "astra-demo-anf"
 az_anf_sl = "Standard"
 az_anf_poolsize = 4
 az_anf_poolname = ""
-prefix = """
+prefix = ""
 ```
 
 #### and for GCP
 ```bash
-prefix = "
+prefix = ""
 
 gcp-project = ""
 gcp-sa = ""
@@ -102,8 +100,10 @@ network = "default"
 subnetwork = ""
 ip_range_pods = ""
 ip_range_services = ""
-nodepoolname = "node-pool""
+nodepoolname = "node-pool"
 ```
+
+
 In order to start the installation, all required Terraform modules must first be downloaded (1). After that it is recommended to perform a planning run. Here you can see if it will work. Then run the script against the Cloud Provider API.
 
 ```bash
