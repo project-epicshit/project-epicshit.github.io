@@ -9,7 +9,7 @@ layout: post
 # Build your DevOps Environment!
 The LinkedIn post ["NetApp in a Cloud DevOps Context"](https://www.linkedin.com/pulse/netapp-cloud-devops-context-fabian-born/) showed how an optimized Kubernetes environment can look in the cloud. This series of articles now show how to build such an environment in an automated way.
 
-There are or will be four parts to this series.
+There will be four parts to this series.
 
    - Part 1: Planning
    - Part 2: Setting up the required infrastructure
