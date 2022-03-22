@@ -113,3 +113,5 @@ In order to start the installation, all required Terraform modules must first be
 ```
 
 As a result, you end up with a ready-to-run Kubernetes platform on Azure or GCP.
+
+[![Deploy it on GKE](https://img.youtube.com/vi/-UDWRjn4GUw/2.jpg)](https://youtu.be/-UDWRjn4GUw)
