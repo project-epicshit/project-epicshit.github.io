@@ -20,11 +20,11 @@ Further optimization of the Kubernetes environment can be brought about by imple
 Last but not least. With Cloud Insights, there is the possibility to monitor the entire Kubernetes infrastructure. With CI you always know what is going on in your Kubernetes landscape and can be informed at any time, for example, about failed backups in Astra, performance outliers in the storage environment or even when a pod crashes.
  
 All NetApp products at a glance:
-	• Astra Trident - CSI Plugin for Kubernetes
-	• Cloud Volume Service, Azure NetApp Files or FSX for ONTAP
-	• Astra Control for Application Aware Backup 
-	• Spot Ocean for cost optimization
-	• Cloud Insights for Monitoring & Analyze
+* Astra Trident - CSI Plugin for Kubernetes
+* Cloud Volume Service, Azure NetApp Files or FSX for ONTAP
+* Astra Control for Application Aware Backup 
+* Spot Ocean for cost optimization
+* Cloud Insights for Monitoring & Analyze
  
 My conclusion: NetApp offers a lot of potential here in the Cloud DevOps environment for you as a Kubernetes/Storage manager to an application maintainer. 
 
