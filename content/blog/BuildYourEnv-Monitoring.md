@@ -1,12 +1,12 @@
 ---
-title: "Monitoring of Kubernetes Cluster with NetApp Cloud Insights"
+title: "Monitoring of Kubernetes Cluster ..."
 date:  2022-04-13T00:00:00+02:00
 draft: false
 categories: ["NetApp","Docker","Kubernetes","Trident","DevOps","Azure","GCP","AstraControl"]
 banner: /byke_title_monitoring.png
 layout: post
 ---
-## Monitoring of a Kubernetes Cluster
+## ... with NetApp Cloud Insights
 ![titel](https://raw.githubusercontent.com/project-epicshit/project-epicshit.github.io/main/static/byke_title_monitoring.png)
 
 Monitoring Kubernetes Clusters. A must in the service world. Anyone who provides service platforms must be able to tell at any time which and how many resources the customer's applications are consuming. Immediately everyone thinks of **Prometheus** or maybe **Splunk**. But the most common tool is Prometheus.
