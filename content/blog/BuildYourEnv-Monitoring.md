@@ -7,7 +7,7 @@ banner: /byke_title_monitoring.png
 layout: post
 ---
 ## ... with NetApp Cloud Insights
-![titel](https://raw.githubusercontent.com/project-epicshit/project-epicshit.github.io/main/static/byke_title_monitoring.png)
+![titel](https://raw.githubusercontent.com/project-epicshit/project-epicshit.github.io/main/static/byke_title_monitoring.png | width=640px)
 
 Monitoring Kubernetes Clusters. A must in the service world. Anyone who provides service platforms must be able to tell at any time which and how many resources the customer's applications are consuming. Immediately everyone thinks of **Prometheus** or maybe **Splunk**. But the most common tool is Prometheus.
 Prometheus collects performance data of pods and services from the Kubernetes cluster and then displays it via **Grafana**. So why use a new or different tool?
