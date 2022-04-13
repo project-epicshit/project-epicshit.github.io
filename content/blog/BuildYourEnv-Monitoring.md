@@ -7,7 +7,7 @@ banner: /byke_title_monitoring.png
 layout: post
 ---
 ## Monitoring of a Kubernetes Cluster
-<img width="1019" alt="Titel" src="https://raw.githubusercontent.com/project-epicshit/project-epicshit.github.io/main/static/byke_title_monitoring.png">
+![titel](https://raw.githubusercontent.com/project-epicshit/project-epicshit.github.io/main/static/byke_title_monitoring.png)
 
 Monitoring Kubernetes Clusters. A must in the service world. Anyone who provides service platforms must be able to tell at any time which and how many resources the customer's applications are consuming. Immediately everyone thinks of **Prometheus** or maybe **Splunk**. But the most common tool is Prometheus.
 Prometheus collects performance data of pods and services from the Kubernetes cluster and then displays it via **Grafana**. So why use a new or different tool?
@@ -28,13 +28,13 @@ But if you want to know more about troubleshooting, you can contact me or one of
 
 If you already have an instance / or the newly created one available, you get the link displayed and can now login there.
 
-<img width="1019" alt="image" src="https://raw.githubusercontent.com/project-epicshit/project-epicshit.github.io/main/static/byke_monitoring_cvo.png">
+![CI Trial](https://raw.githubusercontent.com/project-epicshit/project-epicshit.github.io/main/static/byke_monitoring_cvo.png)
 
 The central entry point for Cloud Insights is Cloud Central. If you are not registered yet, you should do so and have the possibility to try out many products via a trial.
 
 
 After registration you can start your own Cloud Insights instance via **"Products"** -- **"Cloud Insights"** -- **"Start Free Trial"**.
-<img width="1019" alt="image" src="https://raw.githubusercontent.com/project-epicshit/project-epicshit.github.io/main/static/byke_monitoring_ci.png">
+![CI Trial](https://raw.githubusercontent.com/project-epicshit/project-epicshit.github.io/main/static/byke_monitoring_ci.png)
 
 ### Generate API token
 Because Cloud Insights is a NetApp service, the performance data is sent to. To do this, a piece of software must be installed in the Kubernetes cluster, but before this can be done, the following requirements must first be met.
