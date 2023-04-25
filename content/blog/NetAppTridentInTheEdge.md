@@ -8,7 +8,6 @@ layout: post
 ---
 
 
-﻿<img width="1019" alt="image" src="https://user-images.githubusercontent.com/36699674/152789722-b6b828da-d03a-478c-9ba4-932d2f148aea.png">
+﻿<img width="1019" alt="image" src="[https://raw.githubusercontent.com/project-epicshit/project-epicshit.github.io/main/static/trident-in-the-edge.png](https://raw.githubusercontent.com/project-epicshit/project-epicshit.github.io/main/static/trident-in-the-edge.png)">
 
 # NetApp Trident for ARM is now available !
-
