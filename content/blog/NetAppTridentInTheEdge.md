@@ -1,7 +1,7 @@
 ---
 title: "NetApp Trident in the Edge"
 date:  2023-04-25T00:00:00+02:00
-draft: false
+draft: true
 categories: ["NetApp","Docker","Kubernetes","Trident","DevOps","Azure","GCP","AstraControl"]
 banner: /trident-in-the-edge.png
 layout: post
