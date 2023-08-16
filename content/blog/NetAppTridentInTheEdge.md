@@ -12,6 +12,8 @@ layout: post
 
 # NetApp Trident for ARM is now available !
 
+![environment overview](/trident-in-the-edge.png)
+
 How cool is that 😎? #ARM support in Astra Trident 2023.04!
  
 I tried it right away and deployed NetApp Trident in my #edge environment:
@@ -24,4 +26,4 @@ I tried it right away and deployed NetApp Trident in my #edge environment:
  
 Pictures speak more than 1000 words...
 
-![environment overview](/trident-in-the-edge.png =300x)
+
