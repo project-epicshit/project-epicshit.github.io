@@ -23,3 +23,5 @@ I tried it right away and deployed NetApp Trident in my #edge environment:
 ✔ Internet Connectivity Router
  
 Pictures speak more than 1000 words...
+
+![environment overview](/triden-in-the-edge.png)
