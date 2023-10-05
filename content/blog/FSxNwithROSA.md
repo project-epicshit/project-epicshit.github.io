@@ -7,34 +7,34 @@ banner: "https://github.com/project-epicshit/project-epicshit.github.io/assets/3
 layout: post
 ---
 
-# FSx for NetApp ONTAP and RedHat Openshift on AWS a perfect match
+## FSx for NetApp ONTAP and RedHat Openshift on AWS a perfect match
 
-## Solution Overview
+### Solution Overview
 ﻿ROSA is one of the latest services offered by RedHat on Amazon Web Services (AWS). This means that it is now possible to use the same products that are familiar from the DataCenter world in the public cloud, with the advantage that they are now available as a managed service. ROSA is enhanced with Amazon FSx for NetApp ONTAP (FSxN). By using FSxN, Openshift gets more stability and redundancy across Availability Zones in the cloud.
 
 #### Architecture
 ﻿![grafik](https://github.com/project-epicshit/project-epicshit.github.io/assets/36699674/6c80b9b6-c0c0-415a-9606-178ce4f9b743)
 
 
-### Why ROSA with FSxN
+#### Why ROSA with FSxN
 The combination of RedHat and NetApp products provides an HA solution for running Kubernetes workloads across availability zones (AZs). From a container perspective, there is always the possibility of restarting on another node in another zone. With NetApp Storage for Persistent Data there is an HA solution which managed the failover.
 
 NetApp Astra Trident is used to connect the storage to ROSA. As a CSI driver, Trident is responsible for provisioning the PVC on FSxN and mounting it directly into the container
 
-### Prerequisites
+#### Prerequisites
 	- AWS credentials that provides the necessary permissions to create the resources (VPC, Compute, etc)
 	- AWS account has been linked with RedHat (see ROSA documentation)
 
-### Connectivity
+#### Connectivity
 The most important part of this solution is that connectivity can be established between ROSA nodes and FSxN SVM. It is necessary to pay attention to VPC, subnet, routing table etc..
 There are many ways to accomplish this, but for the sake of simplicity, in this guide everything is configured in the same VPC and subnets.
 
-## Steps in this guide
+### Steps in this guide
 1. Creating ROSA
 2. Deploying  FSx for NetApp ONTAP
 3. Installing and configuring Trident
 
-### Creating a  ROSA Cluster with 
+#### Creating a  ROSA Cluster with 
 There minumum of three ways to deploy a ROSA cluster. 
 	- On the CLI with the command "rosa"
 	- WebUI => https://console.redhat.com
@@ -160,7 +160,7 @@ For creating the operator-roles and the oidc-provider I used the "auto" creation
 It takes a while for the cluster to be deployed. RedHat gives a time range of 30-60 minutes!
 
 
-## Creating FSx
+### Creating FSx
 
 ### Links / Footnotes
 [ROSA - Creating Cluster Guide](https://docs.openshift.com/rosa/rosa_install_access_delete_clusters/rosa-sts-creating-a-cluster-quickly.html)
