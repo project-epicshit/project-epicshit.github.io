@@ -1,7 +1,7 @@
 ---
 title: "FSxN + ROSA = ❤️"
 date:  2023-10-05T00:00:00+02:00
-draft: false
+draft: true
 categories: ["NetApp","Docker","Kubernetes","Trident","DevOps","AWS","RedHat","AstraControl","Openshift"]
 banner: "https://github.com/project-epicshit/project-epicshit.github.io/assets/36699674/6c80b9b6-c0c0-415a-9606-178ce4f9b743"
 layout: post
