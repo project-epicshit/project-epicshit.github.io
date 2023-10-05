@@ -188,7 +188,7 @@ Now the following fields must be filled in:
 Click *"Next"*, *"Verify the following attributes before proceeding"* and then *"Create file system"*
 
 In the background AWS creates a new FSxN instance, which takes a while.
-
+<img src="[drawing.jpg](https://github.com/project-epicshit/project-epicshit.github.io/assets/36699674/0da9fbab-f0c7-4701-ae22-319236f2bf99)" alt="drawing" width="400"/>
 ![grafik](https://github.com/project-epicshit/project-epicshit.github.io/assets/36699674/0da9fbab-f0c7-4701-ae22-319236f2bf99)
 
 
