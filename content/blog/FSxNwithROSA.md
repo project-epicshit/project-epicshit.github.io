@@ -29,12 +29,14 @@ NetApp Astra Trident is used to connect the storage to ROSA. As a CSI driver, Tr
 The most important part of this solution is that connectivity can be established between ROSA nodes and FSxN SVM. It is necessary to pay attention to VPC, subnet, routing table etc..
 There are many ways to accomplish this, but for the sake of simplicity, in this guide everything is configured in the same VPC and subnets.
 
-### Steps in this guide
+
+
+## Build the perfect match
 1. Creating ROSA
 2. Deploying  FSx for NetApp ONTAP
 3. Installing and configuring Trident
 
-#### Creating a  ROSA Cluster with 
+### 1. Creating a  ROSA Cluster with 
 There minumum of three ways to deploy a ROSA cluster. 
 	- On the CLI with the command "rosa"
 	- WebUI => https://console.redhat.com
@@ -160,7 +162,35 @@ For creating the operator-roles and the oidc-provider I used the "auto" creation
 It takes a while for the cluster to be deployed. RedHat gives a time range of 30-60 minutes!
 
 
-### Creating FSx
+### 2. Deploying  FSx for NetApp ONTAP
+
+Now that the ROSA cluster has been created, the VPC and subnet IDs for FSxN are required. These are displayed on the CLI among other things:
+
+```bash
+aws ec2 describe-vpcs --region us-east-1 --filters Name=tag:red-hat-clustertype,Values=rosa
+aws ec2 describe-subnets --region us-east-1 --filters Name=tag:red-hat-clustertype,Values=rosa Name=tag:Name,Values="*public*"
+```
+Alternatively, you can also get this information via the AWS Console. 
+
+FSxN can also be configured in several ways. This. Guide now describes the way via the AWS Console. To do this, go to FSx in the Console, select "Create file system", and click on "Configure".
+
+![grafik](https://github.com/project-epicshit/project-epicshit.github.io/assets/36699674/be16e95a-c090-4ead-a1a0-e5cd43b1682d)
+
+Select "quick create"
+
+Now the following fields must be filled in:
+- [x] File system name: **<name>**
+- [x] Deployment type: **Multi-AZ** (redundant ONTAP instance over two AZ)
+- [x] SSD Capacity: **1024**
+- [x] VPC: **select the VPC to be used for FSx ONTAP. In this guide, the same as the ROSA cluster.**
+- [x] Storage efficiency: **enabled**
+
+Click *"Next"*, *"Verify the following attributes before proceeding"* and then *"Create file system"*
+
+In the background AWS creates a new FSxN instance, which takes a while.
+
+![grafik](https://github.com/project-epicshit/project-epicshit.github.io/assets/36699674/0da9fbab-f0c7-4701-ae22-319236f2bf99)
+
 
 ### Links / Footnotes
 [ROSA - Creating Cluster Guide](https://docs.openshift.com/rosa/rosa_install_access_delete_clusters/rosa-sts-creating-a-cluster-quickly.html)
