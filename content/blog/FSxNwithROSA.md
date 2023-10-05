@@ -1,5 +1,5 @@
 ---
-title: "FSx for NetApp ONTAP and RedHat Openshift on AWS a perfect match"
+title: "FSxN & ROSA = perfect Match"
 date:  2023-10-05T00:00:00+02:00
 draft: false
 categories: ["NetApp","Docker","Kubernetes","Trident","DevOps","AWS","RedHat","AstraControl","Openshift"]
@@ -7,11 +7,12 @@ banner: "https://github.com/project-epicshit/project-epicshit.github.io/assets/3
 layout: post
 ---
 
+# FSx for NetApp ONTAP and RedHat Openshift on AWS a perfect match
 
-﻿## Solution Overview
-ROSA is one of the latest services offered by RedHat on Amazon Web Services (AWS). This means that it is now possible to use the same products that are familiar from the DataCenter world in the public cloud, with the advantage that they are now available as a managed service. ROSA is enhanced with Amazon FSx for NetApp ONTAP (FSxN). By using FSxN, Openshift gets more stability and redundancy across Availability Zones in the cloud.
+## Solution Overview
+﻿ROSA is one of the latest services offered by RedHat on Amazon Web Services (AWS). This means that it is now possible to use the same products that are familiar from the DataCenter world in the public cloud, with the advantage that they are now available as a managed service. ROSA is enhanced with Amazon FSx for NetApp ONTAP (FSxN). By using FSxN, Openshift gets more stability and redundancy across Availability Zones in the cloud.
 
-### Architecture
+#### Architecture
 ﻿![grafik](https://github.com/project-epicshit/project-epicshit.github.io/assets/36699674/6c80b9b6-c0c0-415a-9606-178ce4f9b743)
 
 
