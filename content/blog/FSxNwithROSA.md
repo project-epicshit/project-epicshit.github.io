@@ -22,12 +22,13 @@ The combination of RedHat and NetApp products provides an HA solution for runnin
 NetApp Astra Trident is used to connect the storage to ROSA. As a CSI driver, Trident is responsible for provisioning the PVC on FSxN and mounting it directly into the container
 
 #### Prerequisites
-	- AWS credentials that provides the necessary permissions to create the resources (VPC, Compute, etc)
-	- AWS account has been linked with RedHat (see ROSA documentation)
+- AWS credentials that provides the necessary permissions to create the resources (VPC, Compute, etc)
+- AWS account has been linked with RedHat (see ROSA documentation)
 
 #### Connectivity
 The most important part of this solution is that connectivity can be established between ROSA nodes and FSxN SVM. It is necessary to pay attention to VPC, subnet, routing table etc..
 There are many ways to accomplish this, but for the sake of simplicity, in this guide everything is configured in the same VPC and subnets.
+
 
 
 
@@ -190,6 +191,100 @@ Click *"Next"*, *"Verify the following attributes before proceeding"* and then *
 In the background AWS creates a new FSxN instance, which takes a while.
 
 ![grafik](https://github.com/project-epicshit/project-epicshit.github.io/assets/36699674/0da9fbab-f0c7-4701-ae22-319236f2bf99)
+
+When creating the file system, an SVM (Storage Virtual Machine) is created directly on ONTAP. The PVC will be created in this instance later.
+
+﻿![grafik](https://github.com/project-epicshit/project-epicshit.github.io/assets/36699674/8c495740-e996-4248-b660-81404414c479)
+
+
+Verification of SVM Settings:
+﻿![grafik](https://github.com/project-epicshit/project-epicshit.github.io/assets/36699674/12ca3aad-050a-4fcc-bc68-2c57391028f0)
+
+### 3. Installing and configuring Trident
+
+Now that ROSA and FSxN have been deployed, here comes the Trident installation and configuration.
+
+But, before installing Trident, some informations are needed for the configuration. All required informations are displayed in the detail view in the tab "Endpoints" of the SVM: Management IP,NFS IP or iSCSI IPs - depending on which Data Protokol will be used. **NetApp ONTAP could provide both on the same SVM.**
+
+Trident needs access to the FSxN instance. For the access it requires credentials stored in OpenShift:
+
+```
+# FSxN Admin Credential
+# trident_backend_fsxadmin_credentials.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backend-tbc-ontap-secret
+type: Opaque
+stringData:
+  username: fsxadmin
+  password: MyFSXAdminPassword
+```
+
+In the backend file ```trident_backend_fsxn.yaml```
+
+```
+# Trident Backend
+# trident_backend_fsxn.yaml
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-nas
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  managementLIF: 10.0.255.217
+  backendName: tbc-ontap-nas
+  exportPolicy: default
+  storagePrefix: democluster_
+  autoExportPolicy: true
+  autoExportCIDRs: ['0.0.0.0/0']
+  credentials:
+    name: backend-tbc-ontap-secret
+```
+
+Prepare the Storage Classes for Openshift ```fsxn_storageclass.yaml```:
+```
+# fsxn_storageclass.yaml
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: csi-snapclass
+driver: csi.trident.netapp.io
+deletionPolicy: Delete
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: trident-nas
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+allowVolumeExpansion: True
+```
+
+Now Trident can be installed:
+1. Login into ROSA Cluster
+2. Install Trident Operator
+```
+wget https://github.com/NetApp/trident/releases/download/v23.07.1/trident-installer-23.07.1.tar.gz
+tar -xf trident-installer-23.07.1.tar.gz
+cd trident-installer
+kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.16.yaml
+kubectl apply -f deploy/namespace.yaml
+kubectl apply -f deploy/bundle_<pre/post>_1_25.yaml
+kubectl create -f deploy/crds/tridentorchestrator_cr.yaml
+```  
+
+3. Apply Configurations
+```
+oc apply -f trident_backend_fsxadmin_credentials.yaml -n trident
+oc apply -f trident_backend_fsxn.yaml -n trident
+oc apply -f fsxn_storageclass.yaml
+```
+
 
 
 ### Links / Footnotes
