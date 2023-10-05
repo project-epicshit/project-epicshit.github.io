@@ -1,5 +1,5 @@
 ---
-title: "FSxN & ROSA = ❤️"
+title: "FSxN + ROSA = ❤️"
 date:  2023-10-05T00:00:00+02:00
 draft: false
 categories: ["NetApp","Docker","Kubernetes","Trident","DevOps","AWS","RedHat","AstraControl","Openshift"]
